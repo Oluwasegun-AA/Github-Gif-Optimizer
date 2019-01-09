@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Oluwasegun-AA/vidinfo.svg?branch=develop)](https://travis-ci.org/Oluwasegun-AA/vidinfo) [![Maintainability](https://api.codeclimate.com/v1/badges/ea36b527d5d4a998536f/maintainability)](https://codeclimate.com/github/Oluwasegun-AA/vidinfo/maintainability) <a href="https://codeclimate.com/github/Oluwasegun-AA/vidinfo/test_coverage"><img src="https://api.codeclimate.com/v1/badges/ea36b527d5d4a998536f/test_coverage" /></a>
+[![Build Status](https://travis-ci.org/Oluwasegun-AA/fidio.svg?branch=develop)](https://travis-ci.org/Oluwasegun-AA/fidio) [![Maintainability](https://api.codeclimate.com/v1/badges/ea36b527d5d4a998536f/maintainability)](https://codeclimate.com/github/Oluwasegun-AA/vidinfo/maintainability) <a href="https://codeclimate.com/github/Oluwasegun-AA/vidinfo/test_coverage"><img src="https://api.codeclimate.com/v1/badges/ea36b527d5d4a998536f/test_coverage" /></a>
 [![All Contributors](https://img.shields.io/badge/all_contributors-0-orange.svg?style=flat-square)](#contributors)
 
 # make Gifs from Videos
@@ -53,6 +53,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore -->
 <!-- ALL-CONTRIBUTORS-LIST:END -->
+
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind are welcome!
 
