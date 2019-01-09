@@ -2,18 +2,26 @@
   "name": "fidio",
   "version": "0.1.0",
   "private": true,
+  "main": "dist/app/index.js",
+  "homepage": "./",
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-app-rewired start",
+    "strt": "react-scripts start",
     "build": "react-scripts build",
-    "oldbuild": "npm run clear && babel ./src/index.js --out-dir dist --ignore node_modules",
-    "oldclear": "rimraf dist",
-    "test": "react-scripts test --watchAll -u --coverage",
-    "electron-dev": "concurrently \"yarn start\" \"wait-on http://localhost:3000 && electron .\"",
+    "electron-pack": "yarn build && build --em.main=build/src/app/index.js",
+    "app": "electron .",
+    "clear": "rimraf dist build",
+    "build:electron": "babel src/ -d dist --copy-files",
+    "start:dev": "yarn build:electron && npm run app",
+    "electron-dev": "yarn clear && concurrently  \"yarn build:electron\" \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && yarn app\"",
+    "bu": "yarn clear && yarn build:electron && concurrently \" yarn start\" \"wait-on http://localhost:3000 && electron .\"",
     "pretty": "./node_modules/.bin/prettier --single-quote --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
-    "lint:fix": "eslint src/**/*.js --fix",
+    "lint": "eslint src/**/*.js --fix",
     "test:pre-commit": "CI=true react-scripts test --colors -u --coverage",
+    "contributors:init": "all-contributors init",
     "contributors:add": "npx all-contributors add",
     "contributors:generate": "npx all-contributors generate",
+    "test": "react-scripts test --watchAll -u --coverage",
     "eject": "react-scripts eject"
   },
   "husky": {
@@ -30,19 +38,22 @@
   "eslintConfig": {
     "extends": "react-app"
   },
+  "jest": {
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ]
+  },
   "browserslist": {
     "production": [
       ">0.2%",
       "not dead",
       "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
     ]
   },
   "dependencies": {
+    "@babel/preset-react": "7.0.0",
+    "@babel/runtime": "7.4.5",
+    "fluent-ffmpeg": "2.1.2",
     "node-sass": "4.12.0",
     "react": "16.9.0",
     "react-dom": "16.9.0",
@@ -50,8 +61,11 @@
     "react-scripts": "3.1.1",
     "redux": "4.0.4",
     "redux-thunk": "2.3.0",
-    "@babel/runtime": "7.4.5",
-    "fluent-ffmpeg": "2.1.2"
+    "react-redux": "7.1.0",
+    "electron": "6.0.4",
+    "enzyme": "3.10.0",
+    "enzyme-adapter-react-16": "1.14.0",
+    "prop-types": "15.7.2"
   },
   "devDependencies": {
     "@babel/cli": "7.4.4",
@@ -59,15 +73,21 @@
     "@babel/plugin-proposal-class-properties": "7.3.4",
     "@babel/plugin-transform-runtime": "7.4.4",
     "@babel/preset-env": "7.4.5",
+    "@babel/register": "7.5.5",
     "all-contributors-cli": "6.1.2",
     "concurrently": "4.1.2",
-    "electron": "6.0.4",
     "electron-builder": "21.2.0",
+    "enzyme-to-json": "3.4.0",
+    "eslint": "^6.2.2",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.14.3",
     "husky": "3.0.4",
     "lint-staged": "9.2.3",
     "prettier": "1.18.2",
-    "react-redux": "7.1.0",
-    "rimraf": "2.6.3",
+    "react-app-rewired": "2.1.3",
+    "rimraf": "3.0.0",
     "wait-on": "3.3.0"
   }
 }
