@@ -1,0 +1,27 @@
+{
+  "name": "vidinfo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm run build && electron .",
+    "build": "npm run clear && babel src --out -d dist",
+    "clear": "rimraf dist/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/runtime": "7.4.5",
+    "fluent-ffmpeg": "2.1.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "7.4.4",
+    "@babel/core": "7.4.5",
+    "@babel/plugin-transform-runtime": "7.4.4",
+    "@babel/preset-env": "7.4.5",
+    "electron": "5.0.6",
+    "rimraf": "2.6.3"
+  }
+}
