@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm run build && electron .",
-    "build": "npm run clear && babel src --out -d dist",
-    "clear": "rimraf dist/index.js"
+    "build": "npm run clear && babel src/**/*.js ui/**/*.js --out -d dist --exclude node_modules",
+    "clear": "rimraf dist"
   },
   "keywords": [],
   "author": "",
