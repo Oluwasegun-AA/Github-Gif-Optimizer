@@ -1,15 +1,31 @@
-import electron from 'electron';
+import { app, BrowserWindow } from 'electron';
 import path from 'path';
+import ffmpeg from 'fluent-ffmpeg';
+import {ipcMain } from 'electron';
 
-const {app, BrowserWindow} = electron;
+let win;
+const server = {
+  get: (event, callback) => ipcMain.on(event, callback),
+  send: (mainWindow, event, callback) => mainWindow.webContents.send(event, callback)
+};
 
 app.on('ready', () => {
-  const win = new BrowserWindow({
+  win = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
-      nodeIntegration: false
+      nodeIntegration: true,
     }
+  });
+  win.loadURL(`file:///${path.resolve(`{__dirname}/../`, 'ui/index.html')}`);
+});
+
+
+const ale =(event, path)=> {
+  console.log('wink')
+  ffmpeg.ffprobe(path, (err, metadata) => {
+    console.log('duration ==',   metadata.format.duration);
   })
-  win.loadURL(`file:///${path.resolve(`{__dirname}/../`, 'ui/index.html')}`)
-})
+};
+
+server.get('videoFile', (event, path)=> ale(event, path));

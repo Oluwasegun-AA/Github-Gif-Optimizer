@@ -1,17 +1,11 @@
-// import electron, {ipcRenderer} from 'electron'
+import { ipcRenderer, ipcMain } from 'electron';
 
-// const select = document.querySelector.bind(document);
-// const file = select(file).file[0];
+const client = ipcRenderer;
 
+const select = document.querySelector.bind(document);
 
-const a = document.getElementById('file');
-a.addEventListener('click', b);
-
-function b (){
-  onmouseleavconsole.log('sdfghjk');
+const check =_=> {
+  const {path} = select('.file').files[0];
+  client.send('videoFile', path);
 }
-// const ko = ()=> {
-//   console.log('sdfghjk');
-// }
-
-b();
+const selected = select('.file').addEventListener('change', check)
