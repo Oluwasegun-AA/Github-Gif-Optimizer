@@ -1,12 +1,13 @@
 {
   "name": "vidinfo",
   "version": "1.0.0",
-  "description": "",
-  "main": "dist/index.js",
+  "description": "electromn",
+  "main": "dist/src/index.js",
+  "repository": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm run build && electron .",
-    "build": "npm run clear && babel src/**/*.js ui/**/*.js --out -d dist --exclude node_modules",
+    "build": "npm run clear && babel ./ --out -d dist --ignore node_modules",
     "clear": "rimraf dist"
   },
   "keywords": [],
@@ -17,6 +18,8 @@
     "fluent-ffmpeg": "2.1.2"
   },
   "devDependencies": {
+    "webpack": "4.37.0",
+    "webpack-cli": "3.3.6",
     "@babel/cli": "7.4.4",
     "@babel/core": "7.4.5",
     "@babel/plugin-transform-runtime": "7.4.4",
