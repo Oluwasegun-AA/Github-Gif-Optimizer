@@ -15,7 +15,7 @@ class ClientEvents {
     });
   }
 
-  confirmAction = msg => window.confirm(msg);
+  confirmAction = (msg) => window.confirm(msg);
 }
 
 export default ClientEvents;
