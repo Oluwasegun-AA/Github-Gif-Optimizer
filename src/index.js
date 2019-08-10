@@ -6,7 +6,7 @@ import {ipcMain } from 'electron';
 let win;
 const server = {
   get: (event, callback) => ipcMain.on(event, callback),
-  send: (mainWindow, event, callback) => mainWindow.webContents.send(event, callback)
+  send: (event, callback) => win.webContents.send(event, callback)
 };
 
 app.on('ready', () => {
@@ -22,9 +22,8 @@ app.on('ready', () => {
 
 
 const ale =(event, path)=> {
-  console.log('wink')
   ffmpeg.ffprobe(path, (err, metadata) => {
-    console.log('duration ==',   metadata.format.duration);
+    server.send('videoDuration', metadata.format.duration)
   })
 };
 

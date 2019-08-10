@@ -12,4 +12,9 @@ const check = _ => {
   client.send('videoFile', path);
 };
 
-const selected = select('.file').addEventListener('change', check);
+const display = (event, data) => {
+  select('#display').innerHTML = `the video duration is ${data} seconds`;
+};
+
+const selected = select('#info').addEventListener('click', check);
+client.on('videoDuration', (event, data) => display(event, data));

@@ -11,7 +11,7 @@ var _fluentFfmpeg = _interopRequireDefault(require("fluent-ffmpeg"));
 let win;
 const server = {
   get: (event, callback) => _electron.ipcMain.on(event, callback),
-  send: (mainWindow, event, callback) => mainWindow.webContents.send(event, callback)
+  send: (event, callback) => win.webContents.send(event, callback)
 };
 
 _electron.app.on('ready', () => {
@@ -26,10 +26,8 @@ _electron.app.on('ready', () => {
 });
 
 const ale = (event, path) => {
-  console.log('wink');
-
   _fluentFfmpeg.default.ffprobe(path, (err, metadata) => {
-    console.log('duration ==', metadata.format.duration);
+    server.send('videoDuration', metadata.format.duration);
   });
 };
 
