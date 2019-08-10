@@ -1,4 +1,4 @@
-import { ipcRenderer, ipcMain } from 'electron';
+import { ipcRenderer } from 'electron';
 
 const client = ipcRenderer;
 
@@ -8,4 +8,9 @@ const check =_=> {
   const {path} = select('.file').files[0];
   client.send('videoFile', path);
 }
-const selected = select('.file').addEventListener('change', check)
+
+const display = (event, data)=>{
+  select('#display').innerHTML = `the video duration is ${data} seconds`;
+}
+const selected = select('#info').addEventListener('click', check)
+client.on('videoDuration', (event, data)=>display(event, data))
