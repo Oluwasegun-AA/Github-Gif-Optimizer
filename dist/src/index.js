@@ -20,11 +20,11 @@ const menuTemplate = [{
     label: 'Settings',
 
     click() {
-      createNewWindow('ui/index.html', 'Settings');
-      new _electron.Notification({
-        title: 'notify',
-        body: 'I am warning you o!'
-      }).show();
+      // activeWindow.toggleDevTools();
+      createNewWindow('ui/index.html', 'Settings'); // new Notification({
+      //   title: 'notify',
+      //   body: 'I am warning you o!'
+      // }).show();
     }
 
   }, {
@@ -37,6 +37,18 @@ const menuTemplate = [{
 
   }]
 }];
+process.env.NODE_ENV !== 'production' ? menuTemplate.push({
+  label: 'Dev Console',
+  submenu: [{
+    label: "toggle console",
+    accelerator: "Alt+Cmd+I",
+
+    click(item, activeWindow) {
+      activeWindow.toggleDevTools();
+    }
+
+  }]
+}) : null;
 process.platform === 'darwin' ? menuTemplate.unshift({
   label: 'wink'
 }) : null;
@@ -73,9 +85,13 @@ _electron.app.on('ready', () => {
   });
   mainWindow.loadURL(`file://${_path.default.resolve(`__dirname/../`, 'ui/index.html')}`);
 
-  _electron.Menu.setApplicationMenu(mainMenu);
-
   _electron.app.dock.setMenu(dockMenu);
+
+  _electron.Menu.setApplicationMenu(mainMenu); // mainWindow.setProgressBar(0.9)
+
+
+  mainWindow.on('close', () => _electron.app.quit());
+  console.log(menuTemplate);
 });
 
 const createNewWindow = (filePath, title) => {
@@ -91,10 +107,10 @@ const createNewWindow = (filePath, title) => {
   newWindow.loadURL(`file://${_path.default.resolve(`__dirname/../`, filePath)}`);
 };
 
-const ale = (event, path) => {
+const probeDuration = (event, path) => {
   _fluentFfmpeg.default.ffprobe(path, (err, metadata) => {
     server.send('videoDuration', metadata.format.duration);
   });
 };
 
-server.get('videoFile', (event, path) => ale(event, path));
+server.get('videoFile', (event, path) => probeDuration(event, path));
