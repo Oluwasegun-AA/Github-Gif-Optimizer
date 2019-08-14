@@ -18,7 +18,7 @@ const menuTemplate = [
         label: 'Settings',
         click(){
           // activeWindow.toggleDevTools();
-          createNewWindow('ui/index.html', 'Settings');
+          createNewWindow('ui/settings.html', 'Settings');
           // new Notification({
           //   title: 'notify',
           //   body: 'I am warning you o!'
@@ -80,7 +80,6 @@ app.on('ready', () => {
   Menu.setApplicationMenu(mainMenu)
   // mainWindow.setProgressBar(0.9)
   mainWindow.on('close', ()=> app.quit());
-  console.log(menuTemplate)
 });
 
 const createNewWindow =(filePath, title)=> {
@@ -94,6 +93,7 @@ const createNewWindow =(filePath, title)=> {
     title
   });
   newWindow.loadURL(`file://${path.resolve(`__dirname/../`, filePath)}`);
+  newWindow.on('close', ()=> newWindow = null);
 };
 
 const probeDuration = (event, path) => {
@@ -103,3 +103,4 @@ const probeDuration = (event, path) => {
 };
 
 server.get('videoFile', (event, path) => probeDuration(event, path));
+server.get('exit', (event, path) => newWindow.close());
