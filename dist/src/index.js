@@ -21,7 +21,7 @@ const menuTemplate = [{
 
     click() {
       // activeWindow.toggleDevTools();
-      createNewWindow('ui/index.html', 'Settings'); // new Notification({
+      createNewWindow('ui/settings.html', 'Settings'); // new Notification({
       //   title: 'notify',
       //   body: 'I am warning you o!'
       // }).show();
@@ -105,6 +105,7 @@ const createNewWindow = (filePath, title) => {
     title
   });
   newWindow.loadURL(`file://${_path.default.resolve(`__dirname/../`, filePath)}`);
+  newWindow.on('close', () => newWindow = null);
 };
 
 const probeDuration = (event, path) => {
@@ -114,3 +115,4 @@ const probeDuration = (event, path) => {
 };
 
 server.get('videoFile', (event, path) => probeDuration(event, path));
+server.get('exit', (event, path) => newWindow.close());
