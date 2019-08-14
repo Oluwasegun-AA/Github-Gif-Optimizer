@@ -17,11 +17,12 @@ const menuTemplate = [
       {
         label: 'Settings',
         click(){
+          // activeWindow.toggleDevTools();
           createNewWindow('ui/index.html', 'Settings');
-          new Notification({
-            title: 'notify',
-            body: 'I am warning you o!'
-          }).show();
+          // new Notification({
+          //   title: 'notify',
+          //   body: 'I am warning you o!'
+          // }).show();
         }
       },
       {
@@ -34,10 +35,20 @@ const menuTemplate = [
     ]
   }
 ];
+
+
+process.env.NODE_ENV !== 'production' ? menuTemplate.push({
+  label: 'Dev Console',
+  submenu: [{
+    label: "toggle console",
+    accelerator: "Alt+Cmd+I",
+  click(item, activeWindow) {
+    activeWindow.toggleDevTools();
+  }}]}): null;
+
 process.platform === 'darwin' ? menuTemplate.unshift({
   label: 'wink'
 }) : null;
-
 const dockTemplate = [
   {
     label: 'New Window',
@@ -65,8 +76,11 @@ app.on('ready', () => {
     }
   });
   mainWindow.loadURL(`file://${path.resolve(`__dirname/../`, 'ui/index.html')}`);
-  Menu.setApplicationMenu(mainMenu)
   app.dock.setMenu(dockMenu)
+  Menu.setApplicationMenu(mainMenu)
+  // mainWindow.setProgressBar(0.9)
+  mainWindow.on('close', ()=> app.quit());
+  console.log(menuTemplate)
 });
 
 const createNewWindow =(filePath, title)=> {
@@ -82,10 +96,10 @@ const createNewWindow =(filePath, title)=> {
   newWindow.loadURL(`file://${path.resolve(`__dirname/../`, filePath)}`);
 };
 
-const ale = (event, path) => {
+const probeDuration = (event, path) => {
   ffmpeg.ffprobe(path, (err, metadata) => {
     server.send('videoDuration', metadata.format.duration)
   })
 };
 
-server.get('videoFile', (event, path) => ale(event, path));
+server.get('videoFile', (event, path) => probeDuration(event, path));
