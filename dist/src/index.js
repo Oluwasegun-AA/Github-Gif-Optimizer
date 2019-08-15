@@ -36,17 +36,46 @@ const menuTemplate = [{
     }
 
   }]
+}, {
+  label: 'Edit',
+  submenu: [{
+    role: 'undo'
+  }, {
+    role: 'redo'
+  }, {
+    type: 'separator'
+  }, {
+    role: 'cut'
+  }, {
+    role: 'copy'
+  }, {
+    role: 'paste'
+  }, {
+    role: 'selectall'
+  }, {
+    type: 'separator'
+  }]
 }];
 process.env.NODE_ENV !== 'production' ? menuTemplate.push({
   label: 'Dev Console',
   submenu: [{
-    label: "toggle console",
+    label: "Toggle console",
     accelerator: "Alt+Cmd+I",
 
     click(item, activeWindow) {
       activeWindow.toggleDevTools();
     }
 
+  }, {
+    type: 'separator'
+  }, {
+    role: 'reload'
+  }, {
+    role: 'forcereload'
+  }, {
+    type: 'separator'
+  }, {
+    role: 'togglefullscreen'
   }]
 }) : null;
 process.platform === 'darwin' ? menuTemplate.unshift({
@@ -81,7 +110,9 @@ _electron.app.on('ready', () => {
     webPreferences: {
       nodeIntegration: true,
       backgroundColor: 'red'
-    }
+    } // frame: false,
+    // resizable: false,
+
   });
   mainWindow.loadURL(`file://${_path.default.resolve(`__dirname/../`, 'ui/index.html')}`);
 
@@ -91,7 +122,8 @@ _electron.app.on('ready', () => {
 
 
   mainWindow.on('close', () => _electron.app.quit());
-  console.log(menuTemplate);
+  const iconPath = `${_path.default.resolve(`__dirname/../`, 'ui/assets/fav.ico')}`;
+  new _electron.Tray(iconPath);
 });
 
 const createNewWindow = (filePath, title) => {

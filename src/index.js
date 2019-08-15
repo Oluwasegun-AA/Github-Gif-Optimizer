@@ -1,4 +1,4 @@
-import { app, BrowserWindow, Menu, Notification } from 'electron';
+import { app, BrowserWindow, Menu, Notification, Tray } from 'electron';
 import path from 'path';
 import ffmpeg from 'fluent-ffmpeg';
 import { ipcMain } from 'electron';
@@ -33,18 +33,65 @@ const menuTemplate = [
         }
       }
     ]
+  },
+  {
+    label: 'Edit',
+    submenu: [
+        {
+            role: 'undo'
+        },
+        {
+            role: 'redo'
+        },
+        {
+            type: 'separator'
+        },
+        {
+            role: 'cut'
+        },
+        {
+            role: 'copy'
+        },
+        {
+            role: 'paste'
+        },
+        {
+            role: 'selectall'
+        },
+        {
+            type: 'separator'
+        }
+    ]
   }
 ];
 
 
 process.env.NODE_ENV !== 'production' ? menuTemplate.push({
   label: 'Dev Console',
-  submenu: [{
-    label: "toggle console",
+  submenu: [
+    {
+    label: "Toggle console",
     accelerator: "Alt+Cmd+I",
   click(item, activeWindow) {
     activeWindow.toggleDevTools();
-  }}]}): null;
+  }},
+  {
+    type: 'separator'
+},
+    {
+      role: 'reload'
+    },
+    {
+      role: 'forcereload'
+    },
+    {
+      type: 'separator'
+  },
+    { 
+      role: 'togglefullscreen' 
+    },
+    
+]}): null;
 
 process.platform === 'darwin' ? menuTemplate.unshift({
   label: 'wink'
@@ -73,13 +120,17 @@ app.on('ready', () => {
     webPreferences: {
       nodeIntegration: true,
       backgroundColor: 'red'
-    }
+    },
+    // frame: false,
+    // resizable: false,
   });
   mainWindow.loadURL(`file://${path.resolve(`__dirname/../`, 'ui/index.html')}`);
   app.dock.setMenu(dockMenu)
   Menu.setApplicationMenu(mainMenu)
   // mainWindow.setProgressBar(0.9)
   mainWindow.on('close', ()=> app.quit());
+  const iconPath = `${path.resolve(`__dirname/../`, 'ui/assets/fav.ico')}`;
+  new Tray(iconPath)
 });
 
 const createNewWindow =(filePath, title)=> {
