@@ -10,6 +10,7 @@ var _fluentFfmpeg = _interopRequireDefault(require("fluent-ffmpeg"));
 
 let mainWindow;
 let newWindow;
+let tray;
 const server = {
   get: (event, callback) => _electron.ipcMain.on(event, callback),
   send: (event, callback) => mainWindow.webContents.send(event, callback)
@@ -17,6 +18,15 @@ const server = {
 const menuTemplate = [{
   label: 'VidInfo',
   submenu: [{
+    label: 'About vidInfo',
+
+    click() {
+      _electron.shell.openExternal('https://github.com/Oluwasegun-AA/vidinfo');
+    }
+
+  }, {
+    type: "separator"
+  }, {
     label: 'Settings',
 
     click() {
@@ -28,7 +38,7 @@ const menuTemplate = [{
     }
 
   }, {
-    label: 'Quit',
+    label: 'Quit VidInfo',
     accelerator: 'CmdOrCtrl+Q',
 
     click() {
@@ -69,6 +79,28 @@ const dockTemplate = [{
 }, {
   label: 'New Command...'
 }];
+const trayMenuTemplate = [{
+  label: 'Open vidInfo',
+
+  click(e) {
+    const bounds = tray.getBounds();
+    toggleWindow(e, bounds);
+  }
+
+}, {
+  label: 'Check for Updates'
+}, {
+  type: 'separator'
+}, {
+  label: 'Quit VidInfo',
+
+  click() {
+    _electron.app.quit();
+  }
+
+}];
+
+const trayMenu = _electron.Menu.buildFromTemplate(trayMenuTemplate);
 
 const mainMenu = _electron.Menu.buildFromTemplate(menuTemplate);
 
@@ -81,31 +113,61 @@ _electron.app.on('ready', () => {
     webPreferences: {
       nodeIntegration: true,
       backgroundColor: 'red'
-    }
+    },
+    show: false // frame: false,
+    // resizable: false,
+
   });
   mainWindow.loadURL(`file://${_path.default.resolve(`__dirname/../`, 'ui/index.html')}`);
 
-  _electron.app.dock.setMenu(dockMenu);
+  _electron.app.dock.setMenu(dockMenu); // app.dock.hide()
+
 
   _electron.Menu.setApplicationMenu(mainMenu); // mainWindow.setProgressBar(0.9)
 
 
   mainWindow.on('close', () => _electron.app.quit());
-  console.log(menuTemplate);
+  const iconPath = `${_path.default.resolve(`__dirname/../`, 'ui/assets/logo.png')}`;
+  tray = new _electron.Tray(iconPath);
+  tray.on('click', toggleWindow);
+  tray.setToolTip('VidInfo');
+  tray.on('right-click', () => tray.popUpContextMenu(trayMenu));
+  mainWindow.on('blur', () => mainWindow.hide());
 });
 
 const createNewWindow = (filePath, title) => {
   newWindow = new _electron.BrowserWindow({
     width: 400,
     height: 300,
+    backgroundColor: 'red',
     webPreferences: {
       nodeIntegration: true,
-      backgroundColor: 'red'
+      backgroundThrottling: false
     },
     title
   });
   newWindow.loadURL(`file://${_path.default.resolve(`__dirname/../`, filePath)}`);
   newWindow.on('close', () => newWindow = null);
+  newWindow.on('blur', () => newWindow.hide());
+};
+
+const toggleWindow = (e, bounds) => {
+  const {
+    x,
+    y
+  } = bounds;
+  const {
+    height,
+    width
+  } = mainWindow.getBounds();
+  const yPosition = process.platform == "darwin" ? y : y - height;
+  mainWindow.setBounds({
+    x: x - width / 2,
+    y: yPosition,
+    height,
+    width
+  });
+  mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show();
 };
 
 const probeDuration = (event, path) => {

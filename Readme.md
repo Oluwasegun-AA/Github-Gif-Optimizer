@@ -37,11 +37,11 @@ loading . . .
 ## Contributing
 >  Feel free to 🍴 fork this repository
 
->  👯 Clone this repository to your local machine using `link to come here`
+>  👯 Clone this repository to your local machine using `{ loading . . . }
 
 > Make Contributions
 
-> 🔃 Create a new pull request using `link to come here`
+> 🔃 Create a new pull request using   { loading . . . }
 
 ## License
 ![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)
