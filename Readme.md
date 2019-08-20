@@ -25,6 +25,7 @@ loading . . .
 - `HTML 5`
 - `CSS`
 - `JavaScript`
+- `flow`
 - `Node.js`
 - `Electron`
 
