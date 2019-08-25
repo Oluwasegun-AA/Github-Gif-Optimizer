@@ -7,7 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm run build && electron .",
-    "build": "npm run clear && babel ./ --out -d dist --ignore node_modules",
+    "build": "npm run clear && babel ./src/index.js --out-dir dist --ignore fidio, node_modules",
     "clear": "rimraf dist"
   },
   "keywords": [],
@@ -24,7 +24,6 @@
     "@babel/preset-env": "7.4.5",
     "@babel/plugin-proposal-class-properties": "7.3.4",
     "electron": "5.0.6",
-    "rimraf": "2.6.3",
-    "all-contributors-cli": "6.1.2"
+    "rimraf": "2.6.3"
   }
 }

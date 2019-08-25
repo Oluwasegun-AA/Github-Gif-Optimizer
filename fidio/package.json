@@ -7,11 +7,12 @@
     "build": "react-scripts build",
     "test": "react-scripts test --watchAll -u --coverage",
     "test:pre-commit": "CI=true react-scripts test -u --coverage",
-    "eject": "react-scripts eject",
+    "electron-dev": "concurrently \"yarn start\" \"wait-on http://localhost:3000 && electron .\"",
     "lint:fix": "eslint src/**/*.js --fix",
     "pretty": "./node_modules/.bin/prettier --single-quote --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
     "contributors:add": "npx all-contributors add",
-    "contributors:generate": "npx all-contributors generate"
+    "contributors:generate": "npx all-contributors generate",
+    "eject": "react-scripts eject"
   },
   "husky": {
     "hooks": {
@@ -55,11 +56,14 @@
     "@babel/plugin-transform-runtime": "7.4.4",
     "@babel/preset-env": "7.4.5",
     "all-contributors-cli": "6.1.2",
-    "electron": "5.0.6",
+    "concurrently": "4.1.2",
+    "electron": "6.0.4",
+    "electron-builder": "21.2.0",
     "husky": "3.0.4",
     "lint-staged": "9.2.3",
     "prettier": "1.18.2",
     "react-redux": "7.1.0",
-    "rimraf": "2.6.3"
+    "rimraf": "2.6.3",
+    "wait-on": "3.3.0"
   }
 }
