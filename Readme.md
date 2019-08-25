@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/Oluwasegun-AA/vidinfo.svg?branch=develop)](https://travis-ci.org/Oluwasegun-AA/vidinfo) [![Maintainability](https://api.codeclimate.com/v1/badges/ea36b527d5d4a998536f/maintainability)](https://codeclimate.com/github/Oluwasegun-AA/vidinfo/maintainability) <a href="https://codeclimate.com/github/Oluwasegun-AA/vidinfo/test_coverage"><img src="https://api.codeclimate.com/v1/badges/ea36b527d5d4a998536f/test_coverage" /></a>
+
 # make Gifs from Videos
 
 

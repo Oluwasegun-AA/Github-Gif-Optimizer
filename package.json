@@ -1,29 +1,73 @@
 {
-  "name": "vidinfo",
-  "version": "1.0.0",
-  "description": "electromn",
-  "main": "dist/src/index.js",
-  "repository": "",
+  "name": "fidio",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm run build && electron .",
-    "build": "npm run clear && babel ./src/index.js --out-dir dist --ignore fidio, node_modules",
-    "clear": "rimraf dist"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "oldbuild": "npm run clear && babel ./src/index.js --out-dir dist --ignore node_modules",
+    "oldclear": "rimraf dist",
+    "test": "react-scripts test --watchAll -u --coverage",
+    "electron-dev": "concurrently \"yarn start\" \"wait-on http://localhost:3000 && electron .\"",
+    "pretty": "./node_modules/.bin/prettier --single-quote --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+    "lint:fix": "eslint src/**/*.js --fix",
+    "test:pre-commit": "CI=true react-scripts test --colors -u --coverage",
+    "contributors:add": "npx all-contributors add",
+    "contributors:generate": "npx all-contributors generate",
+    "eject": "react-scripts eject"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged && yarn test:pre-commit"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
   "dependencies": {
+    "node-sass": "4.12.0",
+    "react": "16.9.0",
+    "react-dom": "16.9.0",
+    "react-router-dom": "^5.0.1",
+    "react-scripts": "3.1.1",
+    "redux": "4.0.4",
+    "redux-thunk": "2.3.0",
     "@babel/runtime": "7.4.5",
     "fluent-ffmpeg": "2.1.2"
   },
   "devDependencies": {
     "@babel/cli": "7.4.4",
     "@babel/core": "7.4.5",
+    "@babel/plugin-proposal-class-properties": "7.3.4",
     "@babel/plugin-transform-runtime": "7.4.4",
     "@babel/preset-env": "7.4.5",
-    "@babel/plugin-proposal-class-properties": "7.3.4",
-    "electron": "5.0.6",
-    "rimraf": "2.6.3"
+    "all-contributors-cli": "6.1.2",
+    "concurrently": "4.1.2",
+    "electron": "6.0.4",
+    "electron-builder": "21.2.0",
+    "husky": "3.0.4",
+    "lint-staged": "9.2.3",
+    "prettier": "1.18.2",
+    "react-redux": "7.1.0",
+    "rimraf": "2.6.3",
+    "wait-on": "3.3.0"
   }
 }
