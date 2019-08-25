@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import logo from '../assets/logo.png';
 
-
 class Test extends Component {
   render() {
     return (
@@ -10,7 +9,7 @@ class Test extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <p>
             Edit <code>src/App.js</code> and save to reload.
-        </p>
+          </p>
           <a
             className="App-link"
             href="https://reactjs.org"
@@ -18,7 +17,7 @@ class Test extends Component {
             rel="noopener noreferrer"
           >
             Learn React
-        </a>
+          </a>
         </header>
       </div>
     );
