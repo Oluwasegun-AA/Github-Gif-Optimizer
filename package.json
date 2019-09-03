@@ -6,27 +6,23 @@
   "homepage": "./",
   "scripts": {
     "start": "react-app-rewired start",
-    "strt": "react-scripts start",
     "build": "react-scripts build",
-    "electron-pack": "yarn build && build --em.main=build/src/app/index.js",
     "app": "electron .",
-    "clear": "rimraf dist build",
     "build:electron": "babel src/ -d dist --copy-files",
-    "start:dev": "yarn build:electron && npm run app",
-    "electron-dev": "yarn clear && concurrently  \"yarn build:electron\" \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && yarn app\"",
-    "bu": "yarn clear && yarn build:electron && concurrently \" yarn start\" \"wait-on http://localhost:3000 && electron .\"",
+    "electron:dev": "yarn clear && yarn build:electron && concurrently \" BROWSER=none yarn start\" \"wait-on http://localhost:3000 && yarn app\"",
     "pretty": "./node_modules/.bin/prettier --single-quote --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
     "lint": "eslint src/**/*.js --fix",
-    "test:pre-commit": "CI=true react-scripts test --colors -u --coverage",
+    "test:ci": "CI=true react-scripts test --colors -u --coverage",
     "contributors:init": "all-contributors init",
     "contributors:add": "npx all-contributors add",
     "contributors:generate": "npx all-contributors generate",
     "test": "react-scripts test --watchAll -u --coverage",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "clear": "rimraf dist build"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && yarn test:pre-commit"
+      "pre-push": "lint-staged && yarn test:ci"
     }
   },
   "lint-staged": {

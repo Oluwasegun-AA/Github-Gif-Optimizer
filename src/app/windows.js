@@ -3,7 +3,7 @@ import { cleanup, GlobalShortcuts } from './utils';
 
 class CreateWindow {
   constructor(url, height, width) {
-    this.WINDOW_HEIGHT = height || 800;
+    this.WINDOW_HEIGHT = height || 600;
     this.WINDOW_WIDTH = width || 600;
     this.URL = url;
   }
