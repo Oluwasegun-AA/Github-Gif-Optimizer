@@ -6,15 +6,14 @@ import uploadFile from '../actions/index';
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.select = document.querySelector.bind(document);
     this.state = {
       info: '',
     };
   }
 
-  handleSelect = () => {
+  handleSelect = (e) => {
+    const { path } = document.getElementById('ii').files[0];
     const { load } = this.props;
-    const { path } = this.select('.file').files[0];
     load(path);
   };
 
@@ -36,6 +35,7 @@ class Home extends Component {
             onChange={this.handleSelect}
             type="file"
             accept="video/*"
+            id="ii"
           />
           <button type="button" id="info" onClick={this.getInfo}>
             Get Info
@@ -65,3 +65,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(Home);
+
+// reactDropZone

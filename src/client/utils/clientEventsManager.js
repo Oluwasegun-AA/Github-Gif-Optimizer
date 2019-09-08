@@ -3,8 +3,6 @@ import { client, evt } from '../../common/index';
 class ClientEvents {
   registerEvents() {
     client.on(evt.INFO, (event, data) => {
-      console.log(event, data);
-      // dispatch(loadFile(data));
     });
 
     client.on(evt.QUIT, () => {
