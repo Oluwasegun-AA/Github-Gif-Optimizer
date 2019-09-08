@@ -17,6 +17,6 @@ app.on('ready', () => {
   menu.buildMainMenu();
   dock = menu.buildDock();
   tray = menu.tray();
-  // IPC.registerEvents();
+  IPC.registerEvents();
   // mainWindow.setProgressBar(0.9);
 });

@@ -2,7 +2,6 @@ const dockTemplate = [
   {
     label: 'New Window',
     click() {
-      console.log('New Window');
     },
   },
   {
