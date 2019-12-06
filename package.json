@@ -12,7 +12,7 @@
     "electron:dev": "yarn clear && yarn build:electron && concurrently \" BROWSER=none yarn start\" \"wait-on http://localhost:3000 && yarn app\"",
     "pretty": "./node_modules/.bin/prettier --single-quote --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
     "lint": "eslint src/**/*.js --fix",
-    "test:ci": "CI=true react-scripts test --colors -u --coverage",
+    "test:ci": "CI=true nyc --reporter=lcov react-scripts test --colors --coverage",
     "contributors:init": "all-contributors init",
     "contributors:add": "npx all-contributors add",
     "contributors:generate": "npx all-contributors generate",

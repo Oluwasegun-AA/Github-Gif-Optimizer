@@ -1,19 +1,30 @@
 env:
   global:
-    - CC_TEST_REPORTER_ID=d226187543e6b10882070b44594846f847fddf001d45762d21e0bb69dbe318d5
+    - CC_TEST_REPORTER_ID=b3d87e5ae807b6858b6d3d816577f8f0e510c509b64c17505a648c45d6220a9f
+
 language: node_js
+
 node_js:
   - "stable"
+
 cache:
   directories:
     - node_modules
+
 install:
   - yarn install
+
 before_script:
+  - yarn global add nyc
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
+
 script:
   -  yarn test:ci
+
 after_success:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+  
+notifications:
+  email: false
