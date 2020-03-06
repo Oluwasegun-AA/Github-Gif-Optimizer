@@ -38,13 +38,14 @@ class CreateWindow {
       y: this.bounds.y || null,
       webPreferences: {
         nodeIntegration: true,
-        backgroundThrottling: false,
+        backgroundThrottling: false, // disable pause when window is out of view
         // frame: false,
         // resizable: false
       },
       ...customConfig,
     });
     createdWindow.setMinimumSize(381, 381);
+    createdWindow.setMaximumSize(600, 600);
     createdWindow.loadURL(this.URL);
     createdWindow.on('blur', () => createdWindow.hide());
     createdWindow.on('close', () => {
