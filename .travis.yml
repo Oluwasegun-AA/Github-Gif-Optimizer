@@ -7,24 +7,15 @@ language: node_js
 node_js:
   - "stable"
 
-cache:
-  directories:
-    - node_modules
-
-install:
-  - yarn
-
 before_script:
-  - yarn global add nyc
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
 
 script:
-  -  nyc --reporter=lcov yarn test:ci
+  - yarn test:ci -- -u
 
 after_success:
-  - nyc report --reporter=text-lcov | coveralls
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
   
 notifications:
