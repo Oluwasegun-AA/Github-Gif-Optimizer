@@ -9,7 +9,6 @@
 * [Project Overview](#Project-Overview)
 * [Features](#Features)
 * [Demo](#demo)
-* [Built with](#built-with)
 * [Known Issues](#Known-issues)
 * [Installation](#Installation)
 * [Contributing](#contributing)
@@ -25,14 +24,6 @@ loading . . .
 ## Demo
 loading . . .
 
-## Built with
-- `HTML 5`
-- `CSS`
-- `JavaScript`
-- `flow`
-- `Node.js`
-- `Electron`
-
 ## Known issues
 loading . . .
 
@@ -40,13 +31,7 @@ loading . . .
 loading . . .
 
 ## Contributing
->  Feel free to 🍴 fork this repository
-
->  👯 Clone this repository to your local machine using `{ loading . . . }
-
-> Make Contributions
-
-> 🔃 Create a new pull request using   { loading . . . }
+>  Feel free to 🍴 fork this repository and make contributions
 
 ## Contributors
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
