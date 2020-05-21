@@ -1,5 +1,8 @@
 import { client, evt } from '../../common/index';
 
+/**
+ * @description setup client side preregistered events
+ */
 class ClientEvents {
   registerEvents() {
     client.on(evt.INFO, (event, data) => {
