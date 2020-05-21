@@ -1,3 +1,4 @@
+// setup dock template
 const dockTemplate = [
   {
     label: 'New Window',

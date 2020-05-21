@@ -1,6 +1,7 @@
 import { app, shell } from 'electron';
 import CreateWindow from '../windows';
 
+// setup main menu template
 const menuTemplate = [
   {
     label: 'VidInfo',
@@ -17,7 +18,7 @@ const menuTemplate = [
       {
         label: 'Settings',
         click() {
-          CreateWindow(400, 300, 'ui/settings.html').newWindow({
+          new CreateWindow('ui/settings.html').newWindow({
             title: 'settings',
           });
         },
@@ -62,6 +63,7 @@ const menuTemplate = [
   },
 ];
 
+// optional console menu for development env
 const consoleMenu = {
   label: 'Dev Console',
   submenu: [

@@ -1,5 +1,6 @@
 import { app } from 'electron';
 
+// tray menu options setup
 const trayMenuTemplate = [
   {
     label: 'Check for Updates',
@@ -15,4 +16,4 @@ const trayMenuTemplate = [
   },
 ];
 
-export { trayMenuTemplate };
+export default trayMenuTemplate;
