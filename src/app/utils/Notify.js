@@ -1,7 +1,7 @@
 import { Notification } from 'electron';
 
-export default class Notify {
-  static show = (obj = { title: 'fidio', body: 'default notification' }) => {
-    new Notification(obj).show();
-  };
-}
+const notify = {
+  show: (obj = { title: 'Fidio', body: 'default notification' }) => Notification(obj).show()
+};
+
+export default notify;

@@ -1,18 +1,27 @@
 import { app, BrowserWindow } from 'electron';
-import Env from './Env';
 
+// returns the OS environment where the applications runs
+const env = {
+  isDarwin: process.platform === 'darwin',
+  isProd: process.env.NODE_env === 'production',
+};
+
+// deletes all created windows from memory
 const cleanup = () => {
   app.on('quit', () => {
-    BrowserWindow.getAllWindows().forEach(win => {
-      win = null;
-    });
+    BrowserWindow.getAllWindows().forEach(win => { win = null; });
   });
 };
 
+/**
+ * @description toggles window's visibility when tray is clicked
+ * @param {*} win window to display
+ * @param {Obj} bounds screen position
+ */
 const toggleWindow = (win, bounds) => {
   const { x, y } = bounds;
   const { height, width } = win.getBounds();
-  const yPosition = Env.isDarwin() ? y : y - height;
+  const yPosition = env.isDarwin ? y : y - height;
   win.setBounds({
     x: x - width / 2,
     y: yPosition,
@@ -23,4 +32,4 @@ const toggleWindow = (win, bounds) => {
   return toggle;
 };
 
-export { cleanup, toggleWindow };
+export { cleanup, toggleWindow, env };

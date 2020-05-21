@@ -1,6 +1,11 @@
-import Notify from './Notify';
+import notify from './notify';
 import GlobalShortcuts from './GlobalShortcuts';
-import Env from './Env';
-import { cleanup, toggleWindow } from './helperFunctions';
+import { cleanup, toggleWindow, env } from './helperFunctions';
 
-export { Notify, GlobalShortcuts, Env, cleanup, toggleWindow };
+export {
+  env,
+  notify,
+  cleanup,
+  toggleWindow,
+  GlobalShortcuts
+};
