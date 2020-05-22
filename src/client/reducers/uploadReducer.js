@@ -9,8 +9,8 @@ const uploadReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case LOAD_VIDEO_FILE:
       return {
-        fileInfo: action.data,
         isLoaded: action && action.data,
+        fileInfo: action.data,
       };
     default:
       return state;

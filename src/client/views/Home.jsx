@@ -1,51 +1,48 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import uploadFile from '../actions/index';
 
-class Home extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      info: '',
-    };
-  }
+/**
+ * @description home view functional component
+ * @param {*} props props passed down from parent
+ */
+function Home(props) {
+  const [info, setInfo] = useState('');
 
-  handleSelect = (e) => {
-    const { path } = document.getElementById('ii').files[0];
-    const { load } = this.props;
+  const handleSelect = e => {
+    const { path } = e.target.files[0];
+    const { load } = props;
     load(path);
   };
 
-  getInfo = () => {
+  const getInfo = () => {
     const {
       file: { fileInfo },
-    } = this.props;
-    this.setState({ info: `This file has a duration of ${fileInfo}` });
+    } = props;
+    setInfo(`This file has a duration of ${fileInfo}`);
   };
 
-  render() {
-    return (
-      <div>
-        <div className="top" />
-        <div className="content">
-          <h1 className="title">Fidio</h1>
-          <input
-            className="file"
-            onChange={this.handleSelect}
-            type="file"
-            accept="video/*"
-            id="ii"
-          />
-          <button type="button" id="info" onClick={this.getInfo}>
-            Get Info
-          </button>
-          <h1 id="display">{this.state.info}</h1>
-        </div>
-        <div className="footer" />
+  return (
+    <div>
+      <div className="top" />
+      <div className="content">
+        <h1 className="title">Fidio</h1>
+        <input
+          className="file"
+          onChange={handleSelect}
+          type="file"
+          accept="video/*"
+          id="ii"
+        />
+        <button type="button" id="info" onClick={getInfo}>
+          Get Info
+        </button>
+        <h1 id="display">{info}</h1>
       </div>
-    );
-  }
+      <div className="footer" />
+    </div>
+  );
 }
 
 const mapStateToProps = state => ({

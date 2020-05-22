@@ -44,6 +44,11 @@
       ">0.2%",
       "not dead",
       "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
     ]
   },
   "dependencies": {
@@ -53,9 +58,10 @@
     "enzyme": "3.10.0",
     "enzyme-adapter-react-16": "1.14.0",
     "fluent-ffmpeg": "2.1.2",
+    "lodash": "4.17.15",
     "node-sass": "4.12.0",
     "prop-types": "15.7.2",
-    "react": "16.9.0",
+    "react": "16.13.1",
     "react-dom": "16.9.0",
     "react-redux": "7.1.0",
     "react-router-dom": "^5.0.1",
