@@ -13,7 +13,7 @@ const url = env.isProd
 
 // setup primary window on startup
 app.on('ready', () => {
-  mainWindow = new CreateWindow(url, 600, 600).mainWindow();
+  mainWindow = new CreateWindow(url, 390, 390).mainWindow();
   menu = new MenuBars(mainWindow, 'src/client/assets/logo.png');
   menu.buildMainMenu();
   dock = menu.buildDock();

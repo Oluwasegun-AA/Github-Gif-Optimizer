@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { useDropzone } from 'react-dropzone';
 import uploadFile from '../actions/index';
 
 /**
@@ -10,8 +11,9 @@ import uploadFile from '../actions/index';
 function Home(props) {
   const [info, setInfo] = useState('');
 
-  const handleSelect = e => {
-    const { path } = e.target.files[0];
+  const onDrop = acceptedFiles => {
+    console.log('jjjjj', acceptedFiles);
+    const { path } = acceptedFiles[0];
     const { load } = props;
     load(path);
   };
@@ -23,24 +25,110 @@ function Home(props) {
     setInfo(`This file has a duration of ${fileInfo}`);
   };
 
+  const base = {
+    animation: 'none',
+  };
+
+  const activeStyle = {
+    borderColor: '#2196f3',
+    ...base,
+  };
+
+  const acceptStyle = {
+    borderColor: '#00e676',
+    backgroundColor: 'green',
+    ...base,
+  };
+
+  const rejectStyle = {
+    borderColor: '#ff1744',
+    backgroundColor: 'rgb(203, 71, 71)',
+    animation: 'jumpingText 4s infinite linear',
+    ...base,
+  };
+
+  const {
+    getRootProps,
+    getInputProps,
+    isDragActive,
+    isDragAccept,
+    isDragReject,
+  } = useDropzone({
+    onDrop,
+    accept: 'video/*',
+  });
+
+  const style = useMemo(
+    () => ({
+      ...(isDragActive ? activeStyle : {}),
+      ...(isDragAccept ? acceptStyle : {}),
+      ...(isDragReject ? rejectStyle : {}),
+    }),
+    [isDragActive, isDragReject, isDragAccept]
+  );
+
   return (
-    <div>
-      <div className="top" />
-      <div className="content">
-        <h1 className="title">Fidio</h1>
-        <input
-          className="file"
-          onChange={handleSelect}
-          type="file"
-          accept="video/*"
-          id="ii"
-        />
-        <button type="button" id="info" onClick={getInfo}>
-          Get Info
-        </button>
-        <h1 id="display">{info}</h1>
+    <div className="container">
+      <div className="content" {...getRootProps({ style })}>
+        <input {...getInputProps()} />
+        <div className="inputText">
+          <p>
+            {isDragAccept && <p>Drop file</p>}
+            {isDragReject && <p>Oops! File not supported</p>}
+            {!isDragActive && <p>Drop video files here or click to upload</p>}
+          </p>
+        </div>
       </div>
-      <div className="footer" />
+
+      <div className="loadedSection">
+        <div className="clipDetails">
+          <div className="singleClip">
+            <span className="cancleBtn">
+              <img src="../styles/images/cancel.svg" alt="" />
+            </span>
+            <div className="clip">
+              <div className="clipName">video1 anme (mov, 25mb)</div>
+              <div className="clipDuration">00:00:00</div>
+            </div>
+            <div className="size">
+              <span>output size:</span>
+              <input type="number" min="1" />
+              <span>MB</span>
+            </div>
+          </div>
+
+          <div className="singleClip">
+            <span className="cancleBtn" />
+            <div className="clip">
+              <div className="clipName">video2 anme (mov, 25mb)</div>
+              <div className="clipDuration">00:00:00</div>
+            </div>
+            <div className="size">
+              <span>output size:</span>
+              <input type="number" min="1" />
+              <span>MB</span>
+            </div>
+          </div>
+
+          <div className="singleClip">
+            <span className="cancleBtn" />
+            <div className="clip">
+              <div className="clipName">video3 anme (mov, 25mb)</div>
+              <div className="clipDuration">00:00:00</div>
+            </div>
+            <div className="size">
+              <span>output size:</span>
+              <input type="number" min="1" />
+              <span>MB</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="clipsFooter">
+          <span className="fileHeading btn--red">CANCLE</span>
+          <span className="sizeHeading btn--green">CONVERT</span>
+        </div>
+      </div>
     </div>
   );
 }

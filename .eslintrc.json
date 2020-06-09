@@ -45,7 +45,9 @@
     "import/named": 2,
     "import/namespace": 2,
     "import/default": 2,
-    "import/export": 2
+    "import/export": 2,
+    "arrow-parens": 0,
+    "react/jsx-props-no-spreading": 0
   },
   "globals": {
     "Materialize": true,

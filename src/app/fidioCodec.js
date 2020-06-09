@@ -8,4 +8,6 @@ const probeDuration = (event, path) => {
   });
 };
 
-export { probeDuration };
+export {
+  probeDuration
+};
