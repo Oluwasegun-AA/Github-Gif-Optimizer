@@ -55,11 +55,22 @@
     align-items: center;
     border-bottom: 0.5px solid $clipsBorder;
 
+    &:hover{
+      border-left: 1.3px solid green;
+      transition: ease-in-out;
+    }
+
     .cancleBtn {
       background: url('../images/cancel.svg') center no-repeat;
       min-height: 2em;
       align-items: center;
       flex-grow: 1.2;
+      cursor: pointer;
+      opacity: 0.4;
+
+      &:hover{
+        opacity: 1;
+      }
     }
 
     .size {
@@ -87,12 +98,6 @@
       }
     }
   }
-}
-
-.cancleBtn {
-  background-color: red;
-  fill: red;
-  color: red;
 }
 
 .clipsFooter {
@@ -149,7 +154,42 @@ input {
   align-self: center;
 }
 
+.modal{
+  border: 2px solid $bgColor;
+  border-radius: 5px;
+  position: absolute;
+  top: -60px;
+  // display: none;
+  min-height: max-content;
+  max-width: 450px;
+  align-self: center;
+}
 
+.modal.animate{
+  font-family: R-regular;
+  font-size: small;
+  animation: fadeInFadeOut 5s forwards ease-in-out;
+  color: rgb(0, 0, 0);
+  display: flex;
+  align-items: center;
+  text-align: center;
+  .message{
+    border: 2px solid $inputColor;
+    background-color: $bgColor;
+    text-align: center;
+    border-radius: 5px;
+    padding: 10px;
+    font-weight: bold;
+
+    .items{
+      border: .5px solid $inputColor;
+      border-radius: 3px;
+      padding: 2px;
+      margin-top: 2px;
+    }
+  }
+
+}
 
 
 @keyframes rotate {
@@ -196,5 +236,21 @@ input {
   70% {
     transform: translateY(-22px);
     opacity: 0.7;
+  }
+}
+
+@keyframes fadeInFadeOut {
+  0% {
+    opacity: 0;
+    display: block;
+  }
+  10%, 99%{
+    opacity: 1;
+    transform: translateY(75px) scale(0.98);
+  }
+  100%{
+    opacity: 0;
+    display: none;
+    animation: none;
   }
 }

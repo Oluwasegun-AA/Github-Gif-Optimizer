@@ -5,6 +5,7 @@ import MenuBars from './menu/menu';
 import { env } from './utils';
 import IPC from './BaseEventsManager';
 
+// eslint-disable-next-line no-unused-vars
 let menu, dock, tray;
 let mainWindow;
 const url = env.isProd
@@ -13,7 +14,7 @@ const url = env.isProd
 
 // setup primary window on startup
 app.on('ready', () => {
-  mainWindow = new CreateWindow(url, 390, 390).mainWindow();
+  mainWindow = new CreateWindow(url, 390, 500).mainWindow();
   menu = new MenuBars(mainWindow, 'src/client/assets/logo.png');
   menu.buildMainMenu();
   dock = menu.buildDock();

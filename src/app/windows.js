@@ -44,7 +44,7 @@ class CreateWindow {
       },
       ...customConfig,
     });
-    createdWindow.setMinimumSize(381, 381);
+    createdWindow.setMinimumSize(390, 500);
     createdWindow.setMaximumSize(600, 600);
     createdWindow.loadURL(this.URL);
     createdWindow.on('blur', () => createdWindow.hide());
@@ -52,12 +52,13 @@ class CreateWindow {
       createdWindow = null;
     });
     createdWindow.on('will-resize', (e, { height, width }) => {
-      const win = BrowserWindow.getFocusedWindow();
-      if (height !== width) {
-        const size = Math.min(height, width);
-        e.preventDefault();
-        return win.setSize(size, size);
-      }
+      e.preventDefault();
+      // const win = BrowserWindow.getFocusedWindow();
+      // if (height !== width) {
+      //   const size = Math.min(height, width);
+      //   e.preventDefault();
+      //   return win.setSize(size, size);
+      // }
     });
 
     return createdWindow;

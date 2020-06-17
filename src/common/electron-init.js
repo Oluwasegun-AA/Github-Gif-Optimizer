@@ -1,10 +1,10 @@
 const { BrowserWindow, ipcRenderer, ipcMain } = require('electron');
 
-// IPC renderer helps emits/receives events to electron
+// IPC renderer helps emits/receives events to/from electron
 const client = ipcRenderer;
 
 /**
- * base.on intercepts events triggered by the ipcRenderer
+ * base.on intercepts events triggered by the ipcRenderer(client side)
  * base.send emits event interceptable by the ipcRenderer
  */
 const base = {
