@@ -19,6 +19,11 @@
   animation-timing-function: ease-in;
 }
 
+.video {
+  min-height: 81%;
+  max-height: 81%;
+}
+
 .inputText {
   height: 100%;
   font-size: 1em;
@@ -38,7 +43,7 @@
   flex-direction: column;
 }
 
-.clipDetails{
+.clipDetails {
   height: 100%;
   border-radius: 3px;
   overflow: scroll;
@@ -55,31 +60,46 @@
     align-items: center;
     border-bottom: 0.5px solid $clipsBorder;
 
-    &:hover{
+    &:hover {
       border-left: 1.3px solid green;
       transition: ease-in-out;
     }
 
     .cancleBtn {
       background: url('../images/cancel.svg') center no-repeat;
-      min-height: 2em;
+      height: 2em;
+      width: 4em;
       align-items: center;
-      flex-grow: 1.2;
       cursor: pointer;
       opacity: 0.4;
 
-      &:hover{
+      &:hover {
         opacity: 1;
       }
     }
 
-    .size {
-      flex-grow: 2;
+    .progress {
+      flex-grow: 0.5;
+      font-size: 0.9em;
+      font-weight: bolder;
       display: flex;
       flex-direction: row;
       align-content: center;
       align-items: center;
-      justify-content: center;
+      justify-content: space-evenly;
+    }
+
+    .done {
+      border: 2px solid $clipsBorder;
+      border-radius: 5px;
+      min-height: max-content;
+      align-self: center;
+      margin-right: 20px;
+      margin-left: -20px;
+    }
+
+    .preview {
+      width: 8.5em;
     }
 
     .convertBtn {
@@ -88,10 +108,10 @@
 
     .clip {
       font-weight: bold;
-      font-size: .9em;
+      font-size: 0.9em;
       display: flex;
       flex-direction: column;
-      flex-grow: 3;
+      flex-grow: 2;
 
       .clipDuration {
         font-style: italic;
@@ -118,24 +138,23 @@
 }
 
 .btn {
-
   &--red {
     @include btn-config;
     background-color: $red;
     color: white;
 
-    &:hover{
+    &:hover {
       background-color: $hoverRed;
       cursor: pointer;
     }
   }
-  
+
   &--green {
     @include btn-config;
     background-color: $green;
     color: white;
-    
-    &:hover{
+
+    &:hover {
       background-color: $hoverGreen;
       cursor: pointer;
     }
@@ -146,7 +165,7 @@ input {
   height: 1.2em;
   width: 3em;
   border-radius: 3px;
-  margin:  0em 0.5em 0em 0.5em;
+  margin: 0em 0.5em 0em 0.5em;
   border: none;
   padding: 5px;
   outline: none;
@@ -154,7 +173,7 @@ input {
   align-self: center;
 }
 
-.modal{
+.modal {
   border: 2px solid $bgColor;
   border-radius: 5px;
   position: absolute;
@@ -165,7 +184,7 @@ input {
   align-self: center;
 }
 
-.modal.animate{
+.modal.animate {
   font-family: R-regular;
   font-size: small;
   animation: fadeInFadeOut 5s forwards ease-in-out;
@@ -173,7 +192,7 @@ input {
   display: flex;
   align-items: center;
   text-align: center;
-  .message{
+  .message {
     border: 2px solid $inputColor;
     background-color: $bgColor;
     text-align: center;
@@ -181,16 +200,14 @@ input {
     padding: 10px;
     font-weight: bold;
 
-    .items{
-      border: .5px solid $inputColor;
+    .items {
+      border: 0.5px solid $inputColor;
       border-radius: 3px;
       padding: 2px;
       margin-top: 2px;
     }
   }
-
 }
-
 
 @keyframes rotate {
   0%,
@@ -244,11 +261,12 @@ input {
     opacity: 0;
     display: block;
   }
-  10%, 99%{
+  10%,
+  99% {
     opacity: 1;
     transform: translateY(75px) scale(0.98);
   }
-  100%{
+  100% {
     opacity: 0;
     display: none;
     animation: none;
