@@ -7,7 +7,7 @@ const menuTemplate = [
     label: 'VidInfo',
     submenu: [
       {
-        label: 'About Fidio',
+        label: 'About Github-gif-optimizer',
         click() {
           shell.openExternal('https://github.com/Oluwasegun-AA/vidinfo');
         },
@@ -24,7 +24,7 @@ const menuTemplate = [
         },
       },
       {
-        label: 'Quit Fidio',
+        label: 'Quit Github-gif-optimizer',
         accelerator: 'CmdOrCtrl+Q',
         click() {
           app.quit();

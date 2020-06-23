@@ -7,8 +7,8 @@ import { cleanup, GlobalShortcuts } from './utils';
  */
 class CreateWindow {
   constructor(url, height = undefined, width) {
-    this.WINDOW_HEIGHT = height || 600;
-    this.WINDOW_WIDTH = width || 600;
+    this.WINDOW_HEIGHT = height || 500;
+    this.WINDOW_WIDTH = width || 500;
     this.URL = url;
     this.bounds = isUndefined(width) && isUndefined(height)
       ? BrowserWindow.getFocusedWindow().getBounds()
@@ -44,10 +44,10 @@ class CreateWindow {
       },
       ...customConfig,
     });
-    createdWindow.setMinimumSize(390, 500);
-    createdWindow.setMaximumSize(600, 600);
+    createdWindow.setMinimumSize(500, 500);
+    // createdWindow.setMaximumSize(600, 600);
     createdWindow.loadURL(this.URL);
-    createdWindow.on('blur', () => createdWindow.hide());
+    // createdWindow.on('blur', () => createdWindow.hide());
     createdWindow.on('close', () => {
       createdWindow = null;
     });
