@@ -36,7 +36,7 @@ class MenuBars {
     this.TRAY = new Tray(this.ICON_PATH);
     this.TRAY_BOUNDS = this.TRAY.getBounds();
     this.TRAY.on('click', () => toggleWindow(this.MAIN_WINDOW, this.TRAY_BOUNDS));
-    this.TRAY.setToolTip('Fidio');
+    this.TRAY.setToolTip('Github-gif-optimizer');
     this.TRAY.on('right-click', () => this.TRAY.popUpContextMenu(this.TRAY_MENU));
     return this.TRAY;
   };

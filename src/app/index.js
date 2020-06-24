@@ -6,7 +6,7 @@ import { env } from './utils';
 import IPC from './BaseEventsManager';
 
 // eslint-disable-next-line no-unused-vars
-let menu, dock, tray;
+let menu, dock, tray, events;
 let mainWindow;
 const url = env.isProd
   ? `file://${path.join(__dirname, '../build/index.html')}`
@@ -14,11 +14,11 @@ const url = env.isProd
 
 // setup primary window on startup
 app.on('ready', () => {
-  mainWindow = new CreateWindow(url, 390, 500).mainWindow();
+  mainWindow = new CreateWindow(url, 500, 500).mainWindow();
   menu = new MenuBars(mainWindow, 'src/client/assets/logo.png');
   menu.buildMainMenu();
   dock = menu.buildDock();
   tray = menu.tray();
-  IPC.registerEvents();
+  events = new IPC(mainWindow).registerEvents();
   // mainWindow.setProgressBar(0.9);
 });

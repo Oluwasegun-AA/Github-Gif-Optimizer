@@ -1,36 +1,72 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Button from './Button';
 import Clip from './Clip';
+import {
+  getType, getName, getSize, getDuration
+} from '../../common/index';
+import { saveConversionProgress, removeProgressListener } from '../actions';
 
-const ClipsPreview = ({
-  convertOnClick,
-  CancelOnClick,
-  file,
-  handleOnCancle,
-}) => {
-  const { fileInfo } = file;
-
-  const getType = type => (type.substring(6) === 'quicktime' ? 'mov' : type.substring(6));
-  const getSize = size => (size / 10 ** 6).toFixed(2);
-  const getDuration = duration => {
-    const hours = Math.floor(duration / 3600);
-    duration %= 3600;
-    const minutes = Math.floor(duration / 60);
-    const seconds = Math.floor(duration % 60);
-    return `${hours}:${minutes}:${seconds}`;
-  };
-  const getName = name => {
-    const trimmedName = name.substring(0, 13);
-    return trimmedName === name ? `${trimmedName}` : `${trimmedName}...`;
-  };
+const ClipsPreview = props => {
+  const {
+    handleOnClearAll,
+    handleOnCancle,
+    handleOnConvert,
+    handleOnPreview,
+    handleOnPreviewExit,
+    saveConversionProgress,
+    handleOnOpenInFolder,
+    file: { filesInfo, isPreview },
+  } = props;
 
   const getItems = useMemo(() => {
     let files;
-    if (fileInfo.length) {
-      files = fileInfo.map(({
-        name, duration, type, size
-      }) => (
+    if (filesInfo.length && !isPreview) {
+      files = filesInfo.map(
+        ({
+          name,
+          duration,
+          type,
+          size,
+          progress,
+          isConversionStart,
+          isConverting,
+          isFilePreview,
+          isConversionComplete
+        }) => (
+          <Clip
+            name={getName(name)}
+            duration={getDuration(duration)}
+            type={getType(type)}
+            size={getSize(size)}
+            id={name}
+            key={name}
+            handleOnCancle={handleOnCancle}
+            progress={progress}
+            isConversionStart={isConversionStart}
+            isConverting={isConverting}
+            isFilePreview={isFilePreview}
+            handleOnPreview={handleOnPreview}
+            isConversionComplete={isConversionComplete}
+            handleOnOpenInFolder={handleOnOpenInFolder}
+          />
+        )
+      );
+    }
+    if (filesInfo.length && isPreview) {
+      files = filesInfo.map(
+        ({
+          name,
+          duration,
+          type,
+          size,
+          progress,
+          isConverting,
+          isFilePreview,
+          isConversionStart,
+          isConversionComplete
+        }) => isFilePreview && (
         <Clip
           name={getName(name)}
           duration={getDuration(duration)}
@@ -39,11 +75,26 @@ const ClipsPreview = ({
           id={name}
           key={name}
           handleOnCancle={handleOnCancle}
+          progress={progress}
+          isConversionStart={isConversionStart}
+          isConverting={isConverting}
+          isFilePreview={isFilePreview}
+          handleOnPreviewExit={handleOnPreviewExit}
+          isConversionComplete={isConversionComplete}
+          handleOnOpenInFolder={handleOnOpenInFolder}
+          {...props}
         />
-      ));
+        )
+      );
     }
     return files;
-  }, [fileInfo]);
+  }, [filesInfo]);
+
+  useEffect(() => {
+    saveConversionProgress();
+
+    return removeProgressListener();
+  }, [filesInfo]);
 
   return (
     <div className="loadedSection">
@@ -51,27 +102,37 @@ const ClipsPreview = ({
 
       <div className="clipsFooter">
         <Button
-          value="CANCEL"
-          className="fileHeading btn--red"
-          onClick={convertOnClick}
-          id="can"
+          value="CLEAR ALL"
+          className="btn--red"
+          onClick={handleOnClearAll}
         />
         <Button
           value="CONVERT"
-          className="sizeHeading btn--green"
-          onClick={CancelOnClick}
-          id="con"
+          className="btn--green"
+          onClick={handleOnConvert}
         />
       </div>
     </div>
   );
 };
 
+const mapDispatchToProps = {
+  saveConversionProgress,
+};
+
 ClipsPreview.propTypes = {
-  convertOnClick: PropTypes.func.isRequired,
-  CancelOnClick: PropTypes.func.isRequired,
+  handleOnConvert: PropTypes.func.isRequired,
+  handleOnClearAll: PropTypes.func.isRequired,
   handleOnCancle: PropTypes.func.isRequired,
+  handleOnPreviewExit: PropTypes.func.isRequired,
+  handleOnOpenInFolder: PropTypes.func.isRequired,
+  handleOnPreview: PropTypes.func.isRequired,
+  saveConversionProgress: PropTypes.func.isRequired,
+  isConversionStart: PropTypes.bool.isRequired,
   file: PropTypes.any.isRequired,
 };
 
-export default ClipsPreview;
+export default connect(
+  null,
+  mapDispatchToProps
+)(ClipsPreview);

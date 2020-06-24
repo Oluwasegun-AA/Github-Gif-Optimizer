@@ -33,3 +33,6 @@ body,
   justify-content: center;
   align-items: center;
 }
+video::-webkit-media-controls-fullscreen-button {
+  display: none;
+}

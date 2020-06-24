@@ -1,40 +1,73 @@
-import { find, isEmpty } from 'lodash';
-import { LOAD_VIDEO_FILE, REMOVE_VIDEO_FILE, END_IS_DUPLICATE_TOAST } from '../actionTypes';
+import { find, isEmpty, findIndex } from 'lodash';
+import {
+  PREVIEW,
+  CLEAR_ALL,
+  LOAD_VIDEO_FILE,
+  PROGRESS_UPDATE,
+  REMOVE_VIDEO_FILE,
+  END_IS_DUPLICATE_TOAST
+} from '../actionTypes';
 
-const removeDuplicates = ({ fileInfo }, newItems) => {
-  return newItems.filter(({ name }) => !find(fileInfo, { name }));
-};
-const getDuplicates = ({ fileInfo }, newItems) => {
-  return newItems.filter(({ name }) => !!find(fileInfo, { name }));
+const removeDuplicates = ({ filesInfo }, newItems) => newItems.filter(({ name }) => !find(filesInfo, { name }));
+const getDuplicates = ({ filesInfo }, newItems) => {
+  const data = newItems.filter(({ name }) => !!find(filesInfo, { name }));
+  return data;
 };
 
-const removeFile = (state, { data }) => state.fileInfo.filter(({ name }) => name !== data);
+const removeFile = (state, { data }) => state.filesInfo.filter(({ name }) => name !== data);
+
+const editExistingData = ({ filesInfo }, data) => {
+  const newFiles = [...filesInfo];
+  const item = find(newFiles, { name: data.name });
+  const index = findIndex(newFiles, { name: data.name });
+  newFiles[index] = { ...item, ...data };
+  return newFiles;
+};
 
 const initialState = {
-  isLoaded: false,
-  fileInfo: [],
+  filesInfo: [],
   duplicates: [],
-  isDuplicate: false
+  isDuplicate: false,
+  isPreview: false,
+  isConversionStart: false
 };
 
 const uploadReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case LOAD_VIDEO_FILE:
       return {
-        isLoaded: action && Object.keys(action.data).length > 0,
-        fileInfo: [...state.fileInfo, ...removeDuplicates(state, action.data)],
+        filesInfo: [...state.filesInfo, ...removeDuplicates(state, action.data)],
         duplicates: getDuplicates(state, action.data),
         isDuplicate: !isEmpty(getDuplicates(state, action.data))
       };
     case REMOVE_VIDEO_FILE:
       return {
         ...state,
-        fileInfo: [...removeFile(state, action)]
+        filesInfo: [...removeFile(state, action)],
+        isPreview: false
+      };
+    case PREVIEW:
+      return {
+        ...state,
+        filesInfo: [...editExistingData(state, action.data)],
+        isPreview: action.data.isFilePreview
       };
     case END_IS_DUPLICATE_TOAST:
       return {
         ...state,
         isDuplicate: false
+      };
+    case PROGRESS_UPDATE:
+      return {
+        ...state,
+        filesInfo: [...editExistingData(state, action.data)],
+        isConversionStart: true
+      };
+    case CLEAR_ALL:
+      return {
+        ...state,
+        filesInfo: [],
+        isPreview: false
       };
     default:
       return state;
@@ -42,7 +75,3 @@ const uploadReducer = (state = initialState, action = {}) => {
 };
 
 export default uploadReducer;
-
-// action.data
-//         && Object.keys(action.data).length > 0,
-//         userInfo: action.userInfo

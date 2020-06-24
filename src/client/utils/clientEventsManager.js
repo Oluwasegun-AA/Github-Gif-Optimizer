@@ -12,7 +12,7 @@ class ClientEvents {
       client.send(
         evt.QUIT,
         this.confirmAction(
-          'Are you sure?\n Fidio will stop all running processes'
+          'Are you sure?\n Github-gif-optimizer will stop all running processes'
         )
       );
     });

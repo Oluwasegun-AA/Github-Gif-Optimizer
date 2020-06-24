@@ -9,9 +9,10 @@ const client = ipcRenderer;
  */
 const base = {
   on: (event, callback) => ipcMain.on(event, callback),
-  send: (event, callback) => {
-    BrowserWindow.getFocusedWindow().webContents.send(event, callback);
-  },
+  send: (event, callback, win) => (
+    BrowserWindow.getFocusedWindow() !== null
+      ? BrowserWindow.getFocusedWindow().webContents.send(event, callback)
+      : win.webContents.send(event, callback))
 };
 
 export { client, base };

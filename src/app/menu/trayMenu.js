@@ -9,7 +9,7 @@ const trayMenuTemplate = [
     type: 'separator',
   },
   {
-    label: 'Quit Fidio',
+    label: 'Quit Github-gif-optimizer',
     click() {
       app.quit();
     },

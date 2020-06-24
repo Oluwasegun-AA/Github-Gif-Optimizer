@@ -3,18 +3,13 @@ import PropTypes from 'prop-types';
 import { useDropzone } from 'react-dropzone';
 import { connect } from 'react-redux';
 import { pick } from 'lodash';
-import {
-  uploadFile,
-  removeUploadListener,
-  removeDuplicateToast,
-} from '../actions/index';
+import { uploadFile, removeDuplicateToast, removeInfoListener } from '../actions/index';
 import { client, evt } from '../../common/index';
 import NotificationModal from './NotificationModal';
 
 const UploadInput = props => {
   const {
     loadFiles,
-    history,
     removeDuplicateToast,
     files: { isDuplicate, duplicates },
   } = props;
@@ -22,13 +17,12 @@ const UploadInput = props => {
   const onDrop = useCallback(acceptedFiles => {
     const data = acceptedFiles.map(data => pick(data, ['path', 'name', 'size', 'type']));
     if (data.length) client.send(evt.UPLOAD, data);
-    history.push('/fileLoaded');
   }, []);
 
   useEffect(() => {
     loadFiles();
-    return removeUploadListener();
-  }, []);
+    return removeInfoListener();
+  }, [loadFiles]);
 
   const {
     getRootProps,
@@ -69,7 +63,11 @@ const UploadInput = props => {
       ...(isDragAccept ? acceptStyle : {}),
       ...(isDragReject ? rejectStyle : {}),
     }),
-    [isDragActive, isDragReject, isDragAccept]
+    [[
+      isDragActive,
+      isDragReject,
+      isDragAccept,
+    ]]
   );
 
   const getMessageAndStyle = () => {
@@ -87,7 +85,7 @@ const UploadInput = props => {
     <div className="content" {...getRootProps({ style })}>
       <input {...getInputProps()} />
       <div className="inputText">
-        {isDuplicate && !!duplicates.length && (
+        {isDuplicate && duplicates.length !== 0 && (
           <NotificationModal {...getMessageAndStyle()} items={duplicates} />
         )}
         <p>
@@ -115,7 +113,6 @@ UploadInput.propTypes = {
   isDuplicate: PropTypes.bool.isRequired,
   files: PropTypes.arrayOf(PropTypes.object),
   duplicates: PropTypes.arrayOf(PropTypes.string),
-  history: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default connect(
