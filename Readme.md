@@ -1,7 +1,7 @@
-[![Build Status](https://travis-ci.org/Oluwasegun-AA/fidio.svg?branch=develop)](https://travis-ci.org/Oluwasegun-AA/fidio) [![Maintainability](https://api.codeclimate.com/v1/badges/ea36b527d5d4a998536f/maintainability)](https://codeclimate.com/github/Oluwasegun-AA/vidinfo/maintainability) <a href="https://codeclimate.com/github/Oluwasegun-AA/vidinfo/test_coverage"><img src="https://api.codeclimate.com/v1/badges/ea36b527d5d4a998536f/test_coverage" /></a>
+[![Build Status](https://travis-ci.org/Oluwasegun-AA/Github-gif-optimizer.svg?branch=develop)](https://travis-ci.org/Oluwasegun-AA/Github-gif-optimizer) [![Maintainability](https://api.codeclimate.com/v1/badges/ea36b527d5d4a998536f/maintainability)](https://codeclimate.com/github/Oluwasegun-AA/vidinfo/maintainability) <a href="https://codeclimate.com/github/Oluwasegun-AA/vidinfo/test_coverage"><img src="https://api.codeclimate.com/v1/badges/ea36b527d5d4a998536f/test_coverage" /></a>
 [![All Contributors](https://img.shields.io/badge/all_contributors-0-orange.svg?style=flat-square)](#contributors)
 
-# make Gifs from Videos
+# make Optimized Gifs from Videos
 
 
 ## Table of Contents
@@ -16,19 +16,24 @@
 * [License](#License)
 
 ## Project Overview
-loading . . .
+Github-Gif-Optimizer was birth out of the need to create Quality Gifs which looks good on PRs and Readme.md files and within the 10MB stipulated size.
+To obtain the maximum desired performance, do ensure small video file sizes
 
 ## Features
-loading . . .
+- Convert files
+- Preview files before converting
+- Bulk Conversion
 
 ## Demo
 loading . . .
 
 ## Known issues
-loading . . .
+`---`
 
 ## Installation
-loading . . .
+you can download the executable files via the links below
+[Mac]()
+Linux & Windows - Coming soon
 
 ## Contributing
 >  Feel free to 🍴 fork this repository and make contributions
