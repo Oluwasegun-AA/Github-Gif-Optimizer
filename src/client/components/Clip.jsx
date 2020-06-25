@@ -69,6 +69,7 @@ const Clip = ({
         value="Preview"
       />
     )}
+    <progress value={progress + 1 || 0} max="100" />
   </div>
 );
 
