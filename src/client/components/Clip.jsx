@@ -43,7 +43,7 @@ const Clip = ({
       </div>
     )}
     {isConversionComplete && (
-      <div className="progress done">
+      <div className="done">
         <strong>Done</strong>
       </div>
     )}
@@ -69,6 +69,7 @@ const Clip = ({
         value="Preview"
       />
     )}
+    <progress value={progress + 1 || 0} max="100" />
   </div>
 );
 

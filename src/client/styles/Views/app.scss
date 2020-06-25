@@ -49,6 +49,7 @@
   overflow: scroll;
   text-align: center;
   justify-content: center;
+  z-index: 0;
 
   .singleClip {
     display: flex;
@@ -59,6 +60,9 @@
     text-align: left;
     align-items: center;
     border-bottom: 0.5px solid $clipsBorder;
+    z-index: -2;
+    background: none;
+    // opacity: 0;
 
     &:hover {
       border-left: 1.3px solid green;
@@ -74,8 +78,19 @@
       opacity: 0.4;
 
       &:hover {
-        opacity: 1;
+        opacity: 2;
       }
+
+    }
+    
+    progress {
+      position: absolute;
+      height: 42px;
+      width: 95.6%;
+      z-index: -1;
+      border-radius: 4px;
+      opacity: 0.3;
+      padding: 0;
     }
 
     .progress {
@@ -92,10 +107,16 @@
     .done {
       border: 2px solid $clipsBorder;
       border-radius: 5px;
-      min-height: max-content;
+      font-size: 0.9em;
+      width: 40px;
       align-self: center;
       margin-right: 20px;
       margin-left: -20px;
+      display: flex;
+      flex-direction: row;
+      align-content: center;
+      align-items: center;
+      justify-content: space-evenly;
     }
 
     .preview {

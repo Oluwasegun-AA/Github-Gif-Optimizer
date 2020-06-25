@@ -24,7 +24,7 @@ const probeDuration = (event, videos, win) => {
 
 const startConversion = (event, videos, win) => {
   Promise.all(videos.map(({
-    path, name, size, type
+    path, name, size, type,
   }) => {
     const getOptions = () => {
       switch (type) {
