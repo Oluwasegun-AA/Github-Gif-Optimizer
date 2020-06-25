@@ -20,6 +20,12 @@ const FileLoaded = props => {
     canclePreview,
   } = props;
 
+  const handleOnConvert = () => {
+    const validData = filesInfo.filter(
+      ({ isConversionComplete }) => isConversionComplete === false
+    );
+    client.send(evt.CONVERT, validData);
+  };
   const handleOnCancle = e => {
     const item = e.target.id;
     return remove(item);
@@ -47,7 +53,7 @@ const FileLoaded = props => {
       )}
       {!!filesInfo.length && (
         <ClipsPreview
-          handleOnConvert={() => client.send(evt.CONVERT, filesInfo)}
+          handleOnConvert={handleOnConvert}
           handleOnClearAll={() => clear()}
           handleOnPreview={handleOnPreview}
           handleOnCancle={handleOnCancle}

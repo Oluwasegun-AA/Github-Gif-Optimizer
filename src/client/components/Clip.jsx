@@ -43,7 +43,7 @@ const Clip = ({
       </div>
     )}
     {isConversionComplete && (
-      <div className="progress done">
+      <div className="done">
         <strong>Done</strong>
       </div>
     )}

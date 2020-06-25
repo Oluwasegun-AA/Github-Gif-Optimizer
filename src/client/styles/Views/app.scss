@@ -107,10 +107,16 @@
     .done {
       border: 2px solid $clipsBorder;
       border-radius: 5px;
-      min-height: max-content;
+      font-size: 0.9em;
+      width: 40px;
       align-self: center;
       margin-right: 20px;
       margin-left: -20px;
+      display: flex;
+      flex-direction: row;
+      align-content: center;
+      align-items: center;
+      justify-content: space-evenly;
     }
 
     .preview {
