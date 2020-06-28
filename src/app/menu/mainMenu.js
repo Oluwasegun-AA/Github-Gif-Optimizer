@@ -1,5 +1,4 @@
 import { app, shell } from 'electron';
-import CreateWindow from '../windows';
 
 // setup main menu template
 const menuTemplate = [
@@ -9,19 +8,11 @@ const menuTemplate = [
       {
         label: 'About Github-gif-optimizer',
         click() {
-          shell.openExternal('https://github.com/Oluwasegun-AA/vidinfo');
+          shell.openExternal('https://github.com/Oluwasegun-AA/Github-gif-optimizer');
         },
       },
       {
         type: 'separator',
-      },
-      {
-        label: 'Settings',
-        click() {
-          new CreateWindow('ui/settings.html').newWindow({
-            title: 'settings',
-          });
-        },
       },
       {
         label: 'Quit Github-gif-optimizer',
@@ -29,35 +20,6 @@ const menuTemplate = [
         click() {
           app.quit();
         },
-      },
-    ],
-  },
-  {
-    label: 'Edit',
-    submenu: [
-      {
-        role: 'undo',
-      },
-      {
-        role: 'redo',
-      },
-      {
-        type: 'separator',
-      },
-      {
-        role: 'cut',
-      },
-      {
-        role: 'copy',
-      },
-      {
-        role: 'paste',
-      },
-      {
-        role: 'selectall',
-      },
-      {
-        type: 'separator',
       },
     ],
   },
