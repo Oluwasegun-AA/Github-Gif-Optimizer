@@ -39,26 +39,14 @@ class CreateWindow {
       webPreferences: {
         nodeIntegration: true,
         backgroundThrottling: false, // disable pause when window is out of view
-        // frame: false,
-        // resizable: false
+        resizable: false
       },
       ...customConfig,
     });
     createdWindow.setMinimumSize(500, 500);
-    // createdWindow.setMaximumSize(600, 600);
     createdWindow.loadURL(this.URL);
-    // createdWindow.on('blur', () => createdWindow.hide());
     createdWindow.on('close', () => {
       createdWindow = null;
-    });
-    createdWindow.on('will-resize', (e, { height, width }) => {
-      e.preventDefault();
-      // const win = BrowserWindow.getFocusedWindow();
-      // if (height !== width) {
-      //   const size = Math.min(height, width);
-      //   e.preventDefault();
-      //   return win.setSize(size, size);
-      // }
     });
 
     return createdWindow;

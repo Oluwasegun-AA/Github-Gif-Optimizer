@@ -1,4 +1,10 @@
 // central point for views collection
 import Home from './Home';
+import ClipsPreview from './ClipsPreview';
+import UploadInput from './UploadInput';
 
-export default Home;
+export {
+  Home,
+  ClipsPreview,
+  UploadInput
+};
