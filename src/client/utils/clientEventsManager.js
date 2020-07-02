@@ -5,9 +5,6 @@ import { client, evt } from '../../common/index';
  */
 class ClientEvents {
   registerEvents() {
-    client.on(evt.INFO, (event, data) => {
-    });
-
     client.on(evt.QUIT, () => {
       client.send(
         evt.QUIT,
@@ -18,6 +15,7 @@ class ClientEvents {
     });
   }
 
+  // eslint-disable-next-line no-alert
   confirmAction = (msg) => window.confirm(msg);
 }
 

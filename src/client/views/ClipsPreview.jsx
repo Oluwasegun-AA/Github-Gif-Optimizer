@@ -1,8 +1,8 @@
 import React, { useMemo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Button from './Button';
-import Clip from './Clip';
+import Button from '../components/Button';
+import Clip from '../components/Clip';
 import {
   getType, getName, getSize, getDuration
 } from '../../common/index';

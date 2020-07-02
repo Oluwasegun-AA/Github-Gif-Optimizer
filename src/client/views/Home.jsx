@@ -2,7 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { find } from 'lodash';
-import { ClipsPreview, UploadInput, VideoPreview } from '../components/index';
+import { VideoPreview } from '../components/index';
+import ClipsPreview from './ClipsPreview';
+import UploadInput from './UploadInput';
 import {
   deleteFile,
   previewFile,
@@ -22,7 +24,7 @@ const FileLoaded = props => {
 
   const handleOnConvert = () => {
     const validData = filesInfo.filter(
-      ({ isConversionComplete }) => isConversionComplete === false
+      ({ isConversionComplete, isConverting }) => !isConversionComplete && !isConverting
     );
     client.send(evt.CONVERT, validData);
   };
@@ -40,8 +42,8 @@ const FileLoaded = props => {
   };
 
   const handleOnOpenInFolder = e => {
-    const { path } = find(filesInfo, { name: e.target.id });
-    client.send(evt.OPEN_IN_FOLDER, path);
+    const { newPath } = find(filesInfo, { name: e.target.id });
+    client.send(evt.OPEN_IN_FOLDER, newPath);
   };
 
   return (

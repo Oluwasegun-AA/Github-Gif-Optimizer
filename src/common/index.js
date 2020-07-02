@@ -4,7 +4,10 @@ import {
   getType,
   getName,
   getSize,
-  getDuration
+  getDuration,
+  checkFileExists,
+  getOutputFilePath,
+  getOptimizedProperties
 } from './helpers';
 
 // central point for common files collection
@@ -15,5 +18,8 @@ export {
   getType,
   getName,
   getSize,
-  getDuration
+  getDuration,
+  checkFileExists,
+  getOutputFilePath,
+  getOptimizedProperties
 };

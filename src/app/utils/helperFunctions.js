@@ -1,15 +1,16 @@
+/* eslint-disable no-nested-ternary */
 import { app, BrowserWindow } from 'electron';
 
 // returns the OS environment where the applications runs
 const env = {
   isDarwin: process.platform === 'darwin',
-  isProd: process.env.NODE_env === 'production',
+  isDev: process.env.NODE_ENV === 'test',
 };
 
 // deletes all created windows from memory
 const cleanup = () => {
   app.on('quit', () => {
-    BrowserWindow.getAllWindows().forEach(win => { win = null; });
+    BrowserWindow.getAllWindows().forEach(win => { win = null; return win; });
   });
 };
 
@@ -28,7 +29,7 @@ const toggleWindow = (win, bounds) => {
     height,
     width,
   });
-  const toggle = win.isVisible() ? win.hide() : win.show();
+  const toggle = win.isVisible() ? win.isFocused() ? win.hide() : win.show() : win.show();
   return toggle;
 };
 

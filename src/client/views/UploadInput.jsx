@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { pick } from 'lodash';
 import { uploadFile, removeDuplicateToast, removeInfoListener } from '../actions/index';
 import { client, evt } from '../../common/index';
-import NotificationModal from './NotificationModal';
+import NotificationModal from '../components/NotificationModal';
 
 const UploadInput = props => {
   const {
@@ -32,7 +32,7 @@ const UploadInput = props => {
     isDragActive,
   } = useDropzone({
     onDropAccepted: onDrop,
-    accept: 'video/*',
+    accept: 'video/*, image/gif',
   });
 
   const base = {

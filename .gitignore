@@ -12,6 +12,7 @@
 /build
 /dist
 .vscode
+release-builds
 
 # misc
 .DS_Store

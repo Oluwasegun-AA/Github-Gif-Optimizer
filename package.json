@@ -5,22 +5,25 @@
   "main": "dist/app/index.js",
   "homepage": "./",
   "scripts": {
+    "clear": "rimraf dist build release-builds",
     "start": "react-app-rewired start",
-    "build": "react-scripts build",
-    "app": "electron .",
+    "build:react": "react-app-rewired build",
+    "app": "export NODE_ENV=production && electron .",
     "build:electron": "babel src/ -d dist --copy-files",
-    "electron:dev": "yarn clear && yarn build:electron && concurrently \" BROWSER=none yarn start\" \"wait-on http://localhost:3000 && yarn app\" \"yarn file:server\"",
+    "electron:dev": "yarn clear && yarn build:electron && yarn build:react && concurrently \" BROWSER=none yarn start\" \"wait-on http://localhost:3000 && yarn app\" \"yarn file:server\"",
     "file:server": "node dist/fileServer.js",
     "pretty": "./node_modules/.bin/prettier --single-quote --write \"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
     "lint": "eslint src/**/*.js --fix",
     "test:ci": "CI=true react-scripts test --colors --coverage",
+    "test": "react-scripts test --watchAll -u --coverage",
+    "build:package": "npx electron-packager . --overwrite --platform=darwin --arch=x64 --icon=dist/client/assets/appIcon.icns --prune=true --out=release-builds",
+    "build:dmg": "npx electron-installer-dmg release-builds/Github-Gif-Optimizer-darwin-x64/Github-Gif-Optimizer.app Github-Gif-Optimizer --out=release-builds/mac --icon=dist/client/assets/appIcon.icns",
+    "prodBuild": "export NODE_ENV=production && npx npm-run-all clear build:*",
     "contributors:init": "all-contributors init",
     "contributors:add": "npx all-contributors add",
     "contributors:generate": "npx all-contributors generate",
-    "test": "react-scripts test --watchAll -u --coverage",
-    "eject": "react-scripts eject",
-    "clear": "rimraf dist build"
-  },
+    "eject": "react-scripts eject"
+  }, 
   "husky": {
     "hooks": {
       "pre-push": "lint-staged && yarn test:ci"
@@ -58,6 +61,7 @@
     "cors": "2.8.5",
     "dotenv": "8.2.0",
     "electron": "6.0.4",
+    "electron-serve": "1.0.0",
     "enzyme": "3.10.0",
     "enzyme-adapter-react-16": "1.14.0",
     "express": "4.17.1",
@@ -83,7 +87,6 @@
     "@babel/register": "7.5.5",
     "all-contributors-cli": "6.1.2",
     "concurrently": "4.1.2",
-    "electron-builder": "21.2.0",
     "enzyme-to-json": "3.4.0",
     "eslint": "^6.2.2",
     "eslint-config-airbnb": "^18.0.1",
