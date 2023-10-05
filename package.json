@@ -60,7 +60,7 @@
     "@babel/runtime": "7.4.5",
     "cors": "2.8.5",
     "dotenv": "8.2.0",
-    "electron": "9.1.0",
+    "electron": "22.3.25",
     "electron-serve": "1.0.0",
     "enzyme": "3.10.0",
     "enzyme-adapter-react-16": "1.14.0",
